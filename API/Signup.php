@@ -1,16 +1,5 @@
 <?php
 
-    header("Access-Control-Allow-Origin: *");
-
-    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-
-    header("Access-Control-Allow-Headers: Content-Type, Authorization");
-
-    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-
-        http_response_code(200);
-        exit();
-    }
 
     $inData = getRequestInfo();
 
@@ -27,22 +16,26 @@
         returnWithError($conn->connect_error);
     } else {
 
-        $stmt = $conn->prepare("SELECT userID FROM accounts WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            returnWithError("Username already taken");
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            returnWithError("Please enter a valid email address!");
         } else {
 
-            $stmt = $conn->prepare("INSERT INTO accounts (firstName, lastName, username, password, email, phoneNumber) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssss", $firstName, $lastName, $username, $password, $email, $phoneNumber);
+            $stmt = $conn->prepare("SELECT userID FROM accounts WHERE username = ?");
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-            if ($stmt->execute()) {
-                returnWithInfo($firstName, $lastName, $conn->insert_id); 
+            if ($result->num_rows > 0) {
+                returnWithError("Username already taken!");
             } else {
-                returnWithError("Failed to create account");
+                $stmt = $conn->prepare("INSERT INTO accounts (firstName, lastName, username, password, email, phoneNumber) VALUES (?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("ssssss", $firstName, $lastName, $username, $password, $email, $phoneNumber);
+
+                if ($stmt->execute()) {
+                    returnWithInfo($firstName, $lastName, $conn->insert_id); 
+                } else {
+                    returnWithError("Failed to create account!");
+                }
             }
         }
 

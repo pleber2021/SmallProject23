@@ -1,16 +1,26 @@
 <?php
 
-    header("Access-Control-Allow-Origin: *");
 
-    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+function getRequestInfo() {
+    return json_decode(file_get_contents('php://input'), true);
+}
 
-    header("Access-Control-Allow-Headers: Content-Type, Authorization");
+function sendResultInfoAsJson($obj) {
+    header('Content-type: application/json');
+    echo json_encode($obj);
+}
 
-    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+function returnWithError($err) {
+    $retValue = ['id' => 0, 'firstName' => '', 'lastName' => '', 'error' => $err];
+    sendResultInfoAsJson($retValue);
+}
 
-        http_response_code(200);
-        exit();
-    }
+function returnWithInfo($firstName, $lastName, $id) {
+    $retValue = ['id' => $id, 'firstName' => $firstName, 'lastName' => $lastName, 'error' => ''];
+    sendResultInfoAsJson($retValue);
+}
+
+try {
 
     $inData = getRequestInfo();
 
@@ -21,40 +31,26 @@
     $conn = new mysqli("localhost", "SmallProjectManager", "SPM", "SmallProject");
 
     if ($conn->connect_error) {
-        returnWithError($conn->connect_error);
+        throw new Exception("Database connection failed: " . $conn->connect_error);
+    }
+
+    $stmt = $conn->prepare("SELECT userID, firstName, lastName, password FROM accounts WHERE username = ? AND password = ?");
+    $stmt->bind_param("ss", $inData["username"], $inData["password"]); 
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        returnWithInfo($row['firstName'], $row['lastName'], $row['userID']);
     } else {
-
-        $stmt = $conn->prepare("SELECT userID, firstName, lastName FROM accounts WHERE username = ? AND password = ?");
-        $stmt->bind_param("ss", $inData["username"], $inData["password"]);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($row = $result->fetch_assoc()) {
-            returnWithInfo($row['firstName'], $row['lastName'], $row['userID']);
-        } else {
-            returnWithError("No Records Found");
-        }
-
-        $stmt->close();
-        $conn->close();
+        returnWithError("User Not Found");
     }
 
-    function getRequestInfo() {
-        return json_decode(file_get_contents('php://input'), true);
-    }
+    $stmt->close();
+    $conn->close();
 
-    function sendResultInfoAsJson($obj) {
-        header('Content-type: application/json');
-        echo $obj;
-    }
+} catch (Exception $e) {
 
-    function returnWithError($err) {
-        $retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
-        sendResultInfoAsJson($retValue);
-    }
+    returnWithError($e->getMessage());
+}
 
-    function returnWithInfo($firstName, $lastName, $id) {
-        $retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
-        sendResultInfoAsJson($retValue);
-    }
 ?>

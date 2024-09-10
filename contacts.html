@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <title>UCF Contacts - Directory</title>
+        <meta name="description" content="The number one contact manager for UCF students!">
+        <meta name="author" content="COP4331 | Group 23">
+        <link rel="icon" type="image/x-icon" href="favicon2.ico">
+
+        <script src="js/code.js?v=1.1.2"></script>
+        <link rel="stylesheet" href="style.css?v=1.1.2">
+
+    </head>
+<body>
+
+    <style>
+body {
+    background: rgb(104, 70, 113);
+    background-image: linear-gradient(90deg, #361A50, #4f3363,#644E74);
+    margin: 0;
+    justify-content: center; 
+}
+
+.white-text {
+    color: white;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column; 
+    gap: 5px; 
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #b290caa9;
+    color: white;
+}
+
+input::placeholder {
+    color: #fff;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed; 
+    border-collapse: separate; 
+    border-spacing: 10px 10px; 
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.1)
+}
+
+table, th, td {
+    border: 0px solid white;
+    border-radius: 12px;
+}
+
+th, td {
+    padding: 20px;
+    text-align: left;
+    color: white;
+    word-wrap: break-word; 
+    border-radius: 8px !important;
+    border-color: #644E74;
+    background-color: #b290ca52;
+    border-width: 0px;
+}
+
+th {
+    background-color: rgba(73, 40, 82, 0.4);
+}
+
+h1, h2 {
+    margin-bottom: 20px;
+    color: white;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #a07fb7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    gap: 8px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+button:hover {
+    background-color: rgba(73, 40, 82, 0.4);
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        padding-top: 50px; 
+    }
+
+    table, th, td {
+        font-size: 14px; 
+        padding: 10px; 
+    }
+
+    th, td {
+        display: block;
+        width: 100%; 
+        box-sizing: border-box;
+    }
+
+    th, td {
+        text-align: right; 
+        padding: 10px 5px;
+    }
+
+    td {
+        border-bottom: 1px solid white;
+    }
+
+    th {
+        display: none; 
+    }
+
+    td::before {
+        content: attr(data-label); 
+        float: left;
+        text-transform: capitalize;
+        font-weight: bold;
+    }
+
+    .form-container {
+        flex-direction: column; 
+    }
+
+    input {
+        padding: 8px; 
+    }
+
+    button {
+        width: 100%; 
+        padding: 12px;
+    }
+
+}
+
+.contactDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#contactForm {
+    max-width: 550px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+}
+
+#contactForm input,
+#contactForm button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: #0000007d; 
+}
+
+.modal-content {
+   
+    margin: 15% auto;
+    margin-top: 5% !important; 
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%; 
+    max-width: 600px; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background: rgb(104, 70, 113);
+    background-image: linear-gradient(90deg, #361A50, #4f3363,#644E74);
+}
+
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #aaa;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#contactForm p {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 5px;
+}
+
+    </style>
+
+    <button type="button" id="loginButton" onclick="logout();" style="position: absolute; top: 10px; right: 10px;">Logout</button>
+
+    <div class="monicon">
+        <h1 style="text-align: center; margin-top: 25px; margin-bottom: 25px;">Contacts Directory <img src="favicon2.ico" class="monicon"></h1>
+    </div>  
+
+    <div class="contactDiv">
+        <div id="contactForm">
+            <button type="button" onclick="openModal()">Add Contact</button>
+        </div>
+    </div>
+
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Add Contact</h2>
+            <p style="margin-bottom: 20px; font-weight: 600;"><span style="color: #b290ca;">All <span style="text-decoration: underline;">REQUIRED</span> fields are marked with a  <span style="color: red;">*</span>.</span></p>
+            <div id="contactForm">
+                <p>First Name <span style="color: red;">*</span></p>
+                <input type="text" id="contactFirstName" placeholder="Enter First Name">
+                <p>Last Name <span style="color: red;">*</span></p>
+                <input type="text" id="contactLastName" placeholder="Enter Last Name">
+                <p>Email <span style="color: red;">*</span></p>
+                <input type="email" id="contactEmail" placeholder="Enter Email">
+                <p>Phone Number <span style="color: red;">*</span></p>
+                <input type="text" id="contactPhoneNumber" placeholder="Enter Phone Number">
+                <button type="submit" onclick="addContact()">Add Contact</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="contactDiv" style="margin-top: 20px;">
+        <div id="contactForm">
+            <p>Search</p>
+            <input type="text" id="contactSearch" placeholder="Enter First or Last Name" oninput="search()">
+        </div>
+    </div>
+    
+
+    <span id="contactStatus" style="z-index: 100 !important;text-align: center; display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); padding: 10px 20px; background-color: #a074c0; color: white; font-weight: 600; font-size: 18px; border-radius: 8px; opacity: 0; transition: opacity 0.5s; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);"></span>
+
+    <table id="contacts">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        
+        function openModal() {
+            document.getElementById("contactModal").style.display = "block";
+        }
+
+        
+        function closeModal() {
+            document.getElementById("contactModal").style.display = "none";
+        }
+
+        
+        window.onclick = function(event) {
+            var modal = document.getElementById("contactModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -3,14 +3,15 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="css/styles.css?v1.1.2">
-        <title>UCF Contacts - Home</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <title>UCF Contacts - Home1</title>
         <meta name="description" content="The number one contact manager for UCF students!">
         <meta name="author" content="COP4331 | Group 23">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/x-icon" href="favicon2.ico">
+        
 
-        <script src="js/code.js?v=1.1.2"></script>
+        <script type="text/javascript" src="js/code.js"></script>
     </head>
     <body>
       <img class="monkey" src="css/monkey.svg" alt="Purple Monkey">
@@ -19,61 +20,46 @@
 
        <!--<button onclick="window.location.href='login.html';">Login</button>---> 
         <!--<button onclick="window.location.href='signup.html';">Sign Up</button>-->
-
+        
         <div class="form-container register" >
             <form>
-
+              
               <div class="monicon">
                 <h1>Register<img src="favicon2.ico" class="monicon"></h1>
+                
 
               </div>
-            <span></span>
-            <style>
-              .contactstuff {
-                  font-size: 12px !important;
-                  font-weight: 600;
-                  color: rgb(0, 0, 0);
-                  margin-bottom: -8px !important;
-                  margin-top: 5px !important;
-                  width: 97%;
-
-              }
-            </style>
-            <p class="contactstuff">Username</p>
+            <span>Register With Email</span>
             <input type="text" id="signupUsername" placeholder="Username"/>
-            <p class="contactstuff">Password</p>
             <input type="password" id="signupPassword" placeholder="Password"/>
-            <p class="contactstuff">First Name</p>
             <input type="text" id="signupFirstName" placeholder="First Name"/>
-            <p class="contactstuff">Last Name</p>
             <input type="text" id="signupLastName" placeholder="Last Name"/>
-            <p class="contactstuff">Email</p>
             <input type="text" id="signupEmail" placeholder="Email"/>
-            <p class="contactstuff">Phone Number</p>
             <input type="text" id="signupPhoneNumber" placeholder="Phone Number"/>
-
+      
             <button  type="button" id="signupButton" onclick="signup();">Sign Up</button>
             <span id="signupStatus"></span>
         </form>
           </div>
-
+        
         <div class="form-container login">
             <form>
             <div class="monicon">
               <h1>Login<img src="favicon2.ico" class="monicon"></h1>
             </div>  
-
-            <span></span>
-            <p class="contactstuff">Username</p>
+            
+            <span>Login with Username & Password</span>
             <input type="text" id="loginUsername" placeholder="Username"/>
-            <p class="contactstuff">Password</p>
             <input type="password" id="loginPassword" placeholder="Password"/>
-
+            
             <button type="button" id="loginButton" onclick="login();">Login</button>
             <span id="loginStatus"></span>
         </form>
         </div>
+        
 
+        
+        
           <div class="toggle-container">
             <div class="toggle">
                 <div class="toggle-panel toggle-left">
@@ -86,14 +72,20 @@
                     <h1>New Here? Register Here!</h1>
                     <p>Register With Email & Password</p>
                     <button class="hidden" id="register">Register</button> 
-
+ 
                  </div>
 
+
+
             </div>
+
+
+
 
           </div>
         </div>
         <script src="js/toggle.js"></script>
+
 
     </body>
 </html>

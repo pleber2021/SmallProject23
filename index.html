@@ -39,20 +39,26 @@
 
               }
             </style>
-            <p class="contactstuff">Username</p>
+            <p class="contactstuff">Username<span style="color: red">*</span></p>
             <input type="text" id="signupUsername" placeholder="Username"/>
-            <p class="contactstuff">Password</p>
+            <div id="susername-error" class="error-message"></div>
+            <p class="contactstuff">Password<span style="color: red">*</span></p>
             <input type="password" id="signupPassword" placeholder="Password"/>
-            <p class="contactstuff">First Name</p>
+            <div id="spassword-error" class="error-message"></div>
+            <p class="contactstuff">First Name<span style="color: red">*</span></p>
             <input type="text" id="signupFirstName" placeholder="First Name"/>
-            <p class="contactstuff">Last Name</p>
+            <div id="sfirstname-error" class="error-message"></div>
+            <p class="contactstuff">Last Name<span style="color: red">*</span></p>
             <input type="text" id="signupLastName" placeholder="Last Name"/>
-            <p class="contactstuff">Email</p>
+            <div id="slastname-error" class="error-message"></div>
+            <p class="contactstuff">Email<span style="color: red">*</span></p>
             <input type="text" id="signupEmail" placeholder="Email"/>
-            <p class="contactstuff">Phone Number</p>
+            <div id="semail-error" class="error-message"></div>
+            <p class="contactstuff">Phone Number<span style="color: red">*</span></p>
             <input type="text" id="signupPhoneNumber" placeholder="Phone Number"/>
+            <div id="sphonenumber-error" class="error-message"></div>
 
-            <button  type="button" id="signupButton" onclick="signup();">Sign Up</button>
+            <button  type="button" id="signupButton" onclick="signup();validateSignup();">Sign Up</button>
             <span id="signupStatus"></span>
         </form>
           </div>
@@ -64,12 +70,14 @@
             </div>  
 
             <span></span>
-            <p class="contactstuff">Username</p>
+            <p class="contactstuff">Username<span style="color: red">*</span></p>
             <input type="text" id="loginUsername" placeholder="Username"/>
-            <p class="contactstuff">Password</p>
+            <div id="username-error" class="error-message"></div>
+            <p class="contactstuff">Password<span style="color: red">*</span></p>
             <input type="password" id="loginPassword" placeholder="Password"/>
+            <div id="password-error" class="error-message"></div>
 
-            <button type="button" id="loginButton" onclick="login();">Login</button>
+            <button type="button" id="loginButton" onclick="login(); validateLogin();">Login</button>
             <span id="loginStatus"></span>
         </form>
         </div>

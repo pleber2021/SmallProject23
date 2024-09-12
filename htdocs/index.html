@@ -1,0 +1,107 @@
+<!--Daniel-->
+<!--Working on Welcome Page-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="css/styles.css?v1.1.2">
+        <title>UCF Contacts - Home</title>
+        <meta name="description" content="The number one contact manager for UCF students!">
+        <meta name="author" content="COP4331 | Group 23">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="favicon2.ico">
+
+        <script src="js/code.js?v=1.1.2"></script>
+    </head>
+    <body>
+      <img class="monkey" src="css/monkey.svg" alt="Purple Monkey">
+        <div class="container" id="container">
+          <img class="monkey2" src="css/monkey2.svg" alt="Purple Monkey">
+
+       <!--<button onclick="window.location.href='login.html';">Login</button>---> 
+        <!--<button onclick="window.location.href='signup.html';">Sign Up</button>-->
+
+        <div class="form-container register" >
+            <form>
+
+              <div class="monicon">
+                <h1>Register<img src="favicon2.ico" class="monicon"></h1>
+
+              </div>
+            <span></span>
+            <style>
+              .contactstuff {
+                  font-size: 12px !important;
+                  font-weight: 600;
+                  color: rgb(0, 0, 0);
+                  margin-bottom: -8px !important;
+                  margin-top: 5px !important;
+                  width: 97%;
+
+              }
+            </style>
+            <p class="contactstuff">Username<span style="color: red">*</span></p>
+            <input type="text" id="signupUsername" placeholder="Username"/>
+            <div id="susername-error" class="error-message"></div>
+            <p class="contactstuff">Password<span style="color: red">*</span></p>
+            <input type="password" id="signupPassword" placeholder="Password"/>
+            <div id="spassword-error" class="error-message"></div>
+            <p class="contactstuff">First Name<span style="color: red">*</span></p>
+            <input type="text" id="signupFirstName" placeholder="First Name"/>
+            <div id="sfirstname-error" class="error-message"></div>
+            <p class="contactstuff">Last Name<span style="color: red">*</span></p>
+            <input type="text" id="signupLastName" placeholder="Last Name"/>
+            <div id="slastname-error" class="error-message"></div>
+            <p class="contactstuff">Email<span style="color: red">*</span></p>
+            <input type="text" id="signupEmail" placeholder="Email"/>
+            <div id="semail-error" class="error-message"></div>
+            <p class="contactstuff">Phone Number<span style="color: red">*</span></p>
+            <input type="text" id="signupPhoneNumber" placeholder="Phone Number"/>
+            <div id="sphonenumber-error" class="error-message"></div>
+
+            <button  type="button" id="signupButton" onclick="signup();validateSignup();">Sign Up</button>
+            <span id="signupStatus"></span>
+        </form>
+          </div>
+
+        <div class="form-container login">
+            <form>
+            <div class="monicon">
+              <h1>Login<img src="favicon2.ico" class="monicon"></h1>
+            </div>  
+
+            <span></span>
+            <p class="contactstuff">Username<span style="color: red">*</span></p>
+            <input type="text" id="loginUsername" placeholder="Username"/>
+            <div id="username-error" class="error-message"></div>
+            <p class="contactstuff">Password<span style="color: red">*</span></p>
+            <input type="password" id="loginPassword" placeholder="Password"/>
+            <div id="password-error" class="error-message"></div>
+
+            <button type="button" id="loginButton" onclick="login(); validateLogin();">Login</button>
+            <span id="loginStatus"></span>
+        </form>
+        </div>
+
+          <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                   <h1>Welcome to UCF's <br>#1 Contact Manager</h1>
+                   <p>Login with Username & Password</p>
+                   <button class="hidden" id="login">Login</button> 
+
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>New Here? Register Here!</h1>
+                    <p>Register With Email & Password</p>
+                    <button class="hidden" id="register">Register</button> 
+
+                 </div>
+
+            </div>
+
+          </div>
+        </div>
+        <script src="js/toggle.js"></script>
+
+    </body>
+</html>

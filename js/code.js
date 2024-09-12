@@ -22,9 +22,13 @@ window.onload = function() {
         console.log("Redirecting to contacts.html");
         window.location.href = "contacts.html";
     }
+    if (loggedIn === "false") {
+        console.log("Redirecting to index.html");
+        window.location.href = "index.html";
+    }
 
     if (window.location.pathname === '/contacts.html') {
-        fetchContacts();
+        getContacts();
     }
 };
 
@@ -68,7 +72,7 @@ function login() {
                     let jsonObject = JSON.parse(xmlRequest.responseText);
                     console.log("Response received: ", jsonObject);
 
-                    userID = jsonObject.id;
+                    userID = jsonObject.userID;
 
                     if (userID < 1) {
                         document.getElementById("loginStatus").innerHTML = "Please enter a valid username and password!";
@@ -154,7 +158,7 @@ function signup() {
                 return;
             }
 
-            userID = jsonObject.id;
+            userID = jsonObject.userID;
             firstName = jsonObject.firstName;
             lastName = jsonObject.lastName;
 
@@ -461,8 +465,8 @@ function showContactStatus(message) {
 
 let allContacts = []; 
 
-function fetchContacts() {
-    console.log("Fetching contacts...");
+function getContacts() {
+    console.log("Getting contacts...");
     userID = getUserIDFromCookie();
     let contactData = { userID: userID };
 
@@ -494,13 +498,28 @@ function displayContacts(contacts) {
         let row = contactsTableBody.insertRow();
         row.id = `contactRow_${contact.contactID}`;
 
-        row.insertCell(0).innerText = contact.firstName;
-        row.insertCell(1).innerText = contact.lastName;
-        row.insertCell(2).innerText = contact.email;
+      
+        let date = new Date(contact.dateCreated);
+        let formattedDate = formatFullDate(date);
 
+       
+        row.insertCell(0).innerText = contact.firstName;
+        row.cells[0].setAttribute('data-title', `Date Created: ${formattedDate}`);
+
+        
+        row.insertCell(1).innerText = contact.lastName;
+        row.cells[1].setAttribute('data-title', `Date Created: ${formattedDate}`);
+
+       
+        row.insertCell(2).innerText = contact.email;
+        row.cells[2].setAttribute('data-title', `Date Created: ${formattedDate}`);
+
+       
         let formattedPhoneNumber = formatPhoneNumber(contact.phoneNumber);
         row.insertCell(3).innerText = formattedPhoneNumber;
+        row.cells[3].setAttribute('data-title', `Date Created: ${formattedDate}`);
 
+       
         let actionCell = row.insertCell(4);
         actionCell.innerHTML = `
             <button class="edit-btn" onclick="editContact(${contact.contactID})">Edit</button>
@@ -509,6 +528,14 @@ function displayContacts(contacts) {
     });
 }
 
+
+function formatFullDate(date) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+
+
 function search() {
     let searchTerm = document.getElementById("contactSearch").value.toLowerCase(); 
     let filteredContacts = allContacts.filter(contact => {
@@ -516,4 +543,95 @@ function search() {
     });
 
     displayContacts(filteredContacts); 
+}
+function validateSignup()
+{
+    var username = document.getElementById("signupUsername");
+    var UerrorMessage = document.getElementById('susername-error');
+    UerrorMessage.textContent = '';
+    UerrorMessage.style.display = 'none';
+
+    // Validate the password field (example validation)
+    if (username.value.trim() === '') {
+        UerrorMessage.textContent = 'Username is required.';
+        UerrorMessage.style.display = 'block';
+}
+    var password = document.getElementById("signupPassword");
+    var PerrorMessage = document.getElementById('spassword-error');  
+    PerrorMessage.textContent = '';
+    PerrorMessage.style.display = 'none';
+    if(password.value.trim() === ''){
+        PerrorMessage.textContent = 'Password is required.';
+        PerrorMessage.style.display = 'block';
+    }
+    var firstName = document.getElementById("signupFirstName");
+    var FerrorMessage = document.getElementById('sfirstname-error');
+    FerrorMessage.textContent = '';
+    FerrorMessage.style.display = 'none';
+    if(firstName.value.trim() === ''){
+        FerrorMessage.textContent = 'First Name is required.';
+        FerrorMessage.style.display = 'block';
+    }
+    var lastName = document.getElementById("signupLastName");
+    var errorMessage = document.getElementById('slastname-error');
+    errorMessage.textContent = '';
+    errorMessage.style.display = 'none';
+    if(lastName.value.trim() === ''){
+        errorMessage.textContent = 'Last Name is required.';
+        errorMessage.style.display = 'block';
+    }
+    var email = document.getElementById("signupEmail");
+    var errorMessage = document.getElementById('semail-error');
+    errorMessage.textContent = '';
+    errorMessage.style.display = 'none';
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email.value.trim() === '') {
+        errorMessage.textContent = 'Email Address is required';
+        errorMessage.style.display = 'block';
+    } else if (!emailPattern.test(email.value.trim())) {
+        errorMessage.textContent = 'Please enter a valid email address.';
+        errorMessage.style.display = 'block';
+    }
+    
+    var phoneNumber = document.getElementById("signupPhoneNumber");
+    var errorMessage = document.getElementById('sphonenumber-error');
+    const phonePattern = /^\d{10}$/;
+    errorMessage.textContent = '';
+    errorMessage.style.display = 'none';
+    if(phoneNumber.value.trim() === ''){
+        errorMessage.textContent = 'Phone Number is required.';
+        errorMessage.style.display = 'block';
+    }
+    else if (!phonePattern.test(phoneNumber.value.trim())) {
+        errorMessage.textContent = 'Please enter a valid phone number.';
+        errorMessage.style.display = 'block';
+    }
+
+}
+function validateLogin(){
+    var usernameField = document.getElementById('loginUsername');
+    var errorMessage = document.getElementById('username-error');
+
+            // Clear previous error message
+            errorMessage.textContent = '';
+            errorMessage.style.display = 'none';
+
+            // Validate the username field (example validation)
+            if (usernameField.value.trim() === '') {
+                errorMessage.textContent = 'Username is required.';
+                errorMessage.style.display = 'block';
+            }
+    var passwordField = document.getElementById('loginPassword');
+    var errorMessage = document.getElementById('password-error');
+
+            // Clear previous error message
+            errorMessage.textContent = '';
+            errorMessage.style.display = 'none';
+
+            // Validate the password field (example validation)
+            if (passwordField.value.trim() === '') {
+                errorMessage.textContent = 'Password is required.';
+                errorMessage.style.display = 'block';
+            }
+
 }

@@ -4,9 +4,7 @@
     "description" : "The number one contact manager for UCF students!",
     "version" : "1.0.0",
     "title" : "UCF Contact Manager",
-    "contact" : {
-      "email" : "na413476@ucf.edu // Nathaniel"
-    },
+    "contact" : { },
     "license" : {
       "name" : "Apache 2.0",
       "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -175,7 +173,12 @@
         "summary" : "Method to connect to data base",
         "parameters" : [ ],
         "responses" : {
-          "200" : { }
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Failed to connect to database"
+          }
         }
       }
     }
@@ -237,7 +240,6 @@
     },
     "AddContact" : {
       "type" : "object",
-      "required" : [ "Email", "FirstName", "LastName" ],
       "properties" : {
         "FirstName" : {
           "type" : "string",
@@ -251,20 +253,20 @@
           "type" : "string",
           "example" : "email@gmail.com"
         },
-        "Phone" : {
+        "phoneNumber" : {
           "type" : "string",
           "example" : "1234567890"
         },
-        "id" : {
+        "userID" : {
           "type" : "integer",
-          "format" : "int64"
+          "example" : 5
         }
       },
       "description" : "Adds a contact for the user"
     },
     "EditContact" : {
       "type" : "object",
-      "required" : [ "Email", "FirstName", "LastName" ],
+      "required" : [ "userID" ],
       "properties" : {
         "FirstName" : {
           "type" : "string",
@@ -278,23 +280,28 @@
           "type" : "string",
           "example" : "email@gmail.com"
         },
-        "Phone" : {
+        "phoneNumber" : {
           "type" : "string",
           "example" : "1234567890"
         },
-        "id" : {
+        "userID" : {
           "type" : "integer",
-          "format" : "int64"
+          "example" : 5
         }
       },
-      "description" : "Adds a contact for the user"
+      "description" : "edits a contact for the user"
     },
     "RemoveContact" : {
       "type" : "object",
+      "required" : [ "contactID", "userID" ],
       "properties" : {
-        "id" : {
+        "userID" : {
           "type" : "integer",
-          "format" : "int64"
+          "example" : 5
+        },
+        "contactID" : {
+          "type" : "integer",
+          "example" : 1
         }
       },
       "description" : "Removes a contact for the user"

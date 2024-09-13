@@ -11,7 +11,7 @@
     }
   },
   "host" : "ucf.red",
-  "basePath" : "/SmallProject/API",
+  "basePath" : "/SmallProject23/API",
   "tags" : [ {
     "name" : "admins",
     "description" : "Secured Admin-only calls"
@@ -312,6 +312,10 @@
         }
       },
       "description" : "Removes a contact for the user"
+    },
+    "db" : {
+      "type" : "object",
+      "description" : "connects database"
     }
   }
 }

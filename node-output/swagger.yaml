@@ -178,7 +178,7 @@
           "name" : "contactDB",
           "required" : false,
           "schema" : {
-            "$ref" : "#/defintions/db"
+            "$ref" : "#/definitions/database"
           }
         } ],
         "responses" : {
@@ -241,6 +241,10 @@
     }
   },
   "definitions" : {
+    "database" : {
+      "type" : "object",
+      "description" : "connects database"
+    },
     "Login" : {
       "type" : "object",
       "required" : [ "password", "username" ],
@@ -362,10 +366,6 @@
         }
       },
       "description" : "Removes a contact for the user"
-    },
-    "db" : {
-      "type" : "object",
-      "description" : "connects database"
     },
     "createContact" : {
       "type" : "object",

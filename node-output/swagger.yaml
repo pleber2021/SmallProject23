@@ -11,7 +11,7 @@
     }
   },
   "host" : "ucf.red",
-  "basePath" : "/API",
+  "basePath" : "/SmallProject/API",
   "tags" : [ {
     "name" : "admins",
     "description" : "Secured Admin-only calls"
@@ -171,7 +171,14 @@
       "post" : {
         "tags" : [ "admins" ],
         "summary" : "Method to connect to data base",
-        "parameters" : [ ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "contactDB",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/defintions/db"
+          }
+        } ],
         "responses" : {
           "200" : {
             "description" : "OK"

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="css/styles.css?v1.1.2">
+        <link rel="stylesheet" href="css/styles.css">
         <title>UCF Contacts - Home</title>
         <meta name="description" content="The number one contact manager for UCF students!">
         <meta name="author" content="COP4331 | Group 23">
@@ -39,18 +39,24 @@
 
               }
             </style>
+            <div class="name-container">
+              <div class="name-field">
+                  <p class="contactstuff">First Name<span style="color: red">*</span></p>
+                  <input type="text" id="signupFirstName" placeholder="First Name"/>
+                  <div id="sfirstname-error" class="error-message"></div>
+              </div>
+              <div class="name-field">
+                  <p class="contactstuff">Last Name<span style="color: red">*</span></p>
+                  <input type="text" id="signupLastName" placeholder="Last Name"/>
+                  <div id="slastname-error" class="error-message"></div>
+              </div>
+          </div>
             <p class="contactstuff">Username<span style="color: red">*</span></p>
             <input type="text" id="signupUsername" placeholder="Username"/>
             <div id="susername-error" class="error-message"></div>
             <p class="contactstuff">Password<span style="color: red">*</span></p>
             <input type="password" id="signupPassword" placeholder="Password"/>
             <div id="spassword-error" class="error-message"></div>
-            <p class="contactstuff">First Name<span style="color: red">*</span></p>
-            <input type="text" id="signupFirstName" placeholder="First Name"/>
-            <div id="sfirstname-error" class="error-message"></div>
-            <p class="contactstuff">Last Name<span style="color: red">*</span></p>
-            <input type="text" id="signupLastName" placeholder="Last Name"/>
-            <div id="slastname-error" class="error-message"></div>
             <p class="contactstuff">Email<span style="color: red">*</span></p>
             <input type="text" id="signupEmail" placeholder="Email"/>
             <div id="semail-error" class="error-message"></div>

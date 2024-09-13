@@ -288,4 +288,36 @@ img.monkey {
 .monicon{
     margin: 20px 0;
 }
+.error-message{
+    color: red;
+    font-size: 0.675em;
+    margin-top: .25em;
+    display: none;
+}
+/* Add these styles to your CSS file (e.g., styles.css) */
+
+.name-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px; /* Adjust the gap between the fields as needed */
+}
+
+.name-field {
+    flex: 1;
+}
+
+.name-field p {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+    margin-bottom: -8px;
+    margin-top: 5px;
+}
+
+.name-field input {
+    width: 100%;
+}
+
+
 

@@ -1,0 +1,303 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "The number one contact manager for UCF students!",
+    "version" : "1.0.0",
+    "title" : "UCF Contact Manager",
+    "contact" : {
+      "email" : "na413476@ucf.edu // Nathaniel"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host" : "ucf.red",
+  "basePath" : "/API",
+  "tags" : [ {
+    "name" : "admins",
+    "description" : "Secured Admin-only calls"
+  }, {
+    "name" : "developers",
+    "description" : "Operations available to regular developers"
+  }, {
+    "name" : "New Tag 3"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/Login.php" : {
+      "post" : {
+        "tags" : [ "developers" ],
+        "summary" : "Logs in a user",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "loginItem",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Login"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully logged in"
+          },
+          "404" : {
+            "description" : "User not found"
+          }
+        }
+      }
+    },
+    "/GetContacts.php" : {
+      "post" : {
+        "tags" : [ "admins" ],
+        "summary" : "Retrieves contacts for specific user",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "getContactItem",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/GetContacts"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Contacts retrieved successfully"
+          },
+          "404" : {
+            "description" : "Contacts not found"
+          }
+        }
+      }
+    },
+    "/Signup.php" : {
+      "post" : {
+        "tags" : [ "developers" ],
+        "summary" : "Registers a new user account",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "signupItem",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Signup"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "User account registration successfully sent"
+          },
+          "404" : {
+            "description" : "Failed to send user account registration"
+          }
+        }
+      }
+    },
+    "/AddContact.php" : {
+      "post" : {
+        "tags" : [ "developers" ],
+        "summary" : "adds a contact for the user",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "addItem",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/AddContact"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Failed to send"
+          }
+        }
+      }
+    },
+    "/RemoveContact.php" : {
+      "post" : {
+        "tags" : [ "developers" ],
+        "summary" : "Removes a contact for the user",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "removeItem",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/RemoveContact"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Failed to send"
+          }
+        }
+      }
+    },
+    "/EditContact.php" : {
+      "post" : {
+        "tags" : [ "developers" ],
+        "summary" : "Edits a user contact",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "addItem",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/EditContact"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Failed to send"
+          }
+        }
+      }
+    },
+    "/db.php" : {
+      "post" : {
+        "tags" : [ "admins" ],
+        "summary" : "Method to connect to data base",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : { }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Login" : {
+      "type" : "object",
+      "required" : [ "password", "username" ],
+      "properties" : {
+        "username" : {
+          "type" : "string",
+          "example" : "mdcranberry"
+        },
+        "password" : {
+          "type" : "string",
+          "example" : "coolpassword"
+        }
+      }
+    },
+    "GetContacts" : {
+      "type" : "object",
+      "required" : [ "userID" ],
+      "properties" : {
+        "userID" : {
+          "type" : "integer",
+          "example" : 5
+        }
+      }
+    },
+    "Signup" : {
+      "type" : "object",
+      "required" : [ "email", "firstName", "lastName", "password", "phoneNumber", "username" ],
+      "properties" : {
+        "username" : {
+          "type" : "string",
+          "example" : "mdcranberry"
+        },
+        "password" : {
+          "type" : "string",
+          "example" : "coolpassword"
+        },
+        "firstName" : {
+          "type" : "string",
+          "example" : "Michael"
+        },
+        "lastName" : {
+          "type" : "string",
+          "example" : "Cran"
+        },
+        "email" : {
+          "type" : "string",
+          "example" : "mdcranberry@gmail.com"
+        },
+        "phoneNumber" : {
+          "type" : "string",
+          "example" : "1234567890"
+        }
+      }
+    },
+    "AddContact" : {
+      "type" : "object",
+      "required" : [ "Email", "FirstName", "LastName" ],
+      "properties" : {
+        "FirstName" : {
+          "type" : "string",
+          "example" : "John"
+        },
+        "LastName" : {
+          "type" : "string",
+          "example" : "Smith"
+        },
+        "Email" : {
+          "type" : "string",
+          "example" : "email@gmail.com"
+        },
+        "Phone" : {
+          "type" : "string",
+          "example" : "1234567890"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      },
+      "description" : "Adds a contact for the user"
+    },
+    "EditContact" : {
+      "type" : "object",
+      "required" : [ "Email", "FirstName", "LastName" ],
+      "properties" : {
+        "FirstName" : {
+          "type" : "string",
+          "example" : "John"
+        },
+        "LastName" : {
+          "type" : "string",
+          "example" : "Smith"
+        },
+        "Email" : {
+          "type" : "string",
+          "example" : "email@gmail.com"
+        },
+        "Phone" : {
+          "type" : "string",
+          "example" : "1234567890"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      },
+      "description" : "Adds a contact for the user"
+    },
+    "RemoveContact" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      },
+      "description" : "Removes a contact for the user"
+    }
+  }
+}

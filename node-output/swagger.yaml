@@ -188,6 +188,54 @@
           }
         }
       }
+    },
+    "/readContact.php" : {
+      "post" : {
+        "tags" : [ "admins" ],
+        "summary" : "Retrieves contacts for specific user",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "getContactItem",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/readContact"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Contacts retrieved successfully"
+          },
+          "404" : {
+            "description" : "Contacts not found"
+          }
+        }
+      }
+    },
+    "/createContact.php" : {
+      "post" : {
+        "tags" : [ "developers" ],
+        "summary" : "creates a contact for the user",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "addItem",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/createContact"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Failed to send"
+          }
+        }
+      }
     }
   },
   "definitions" : {
@@ -316,6 +364,42 @@
     "db" : {
       "type" : "object",
       "description" : "connects database"
+    },
+    "createContact" : {
+      "type" : "object",
+      "properties" : {
+        "FirstName" : {
+          "type" : "string",
+          "example" : "John"
+        },
+        "LastName" : {
+          "type" : "string",
+          "example" : "Smith"
+        },
+        "Email" : {
+          "type" : "string",
+          "example" : "email@gmail.com"
+        },
+        "phoneNumber" : {
+          "type" : "string",
+          "example" : "1234567890"
+        },
+        "userID" : {
+          "type" : "integer",
+          "example" : 5
+        }
+      },
+      "description" : "creates a contact for the user"
+    },
+    "readContact" : {
+      "type" : "object",
+      "required" : [ "userID" ],
+      "properties" : {
+        "userID" : {
+          "type" : "integer",
+          "example" : 5
+        }
+      }
     }
   }
 }

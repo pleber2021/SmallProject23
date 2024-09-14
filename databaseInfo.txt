@@ -1,0 +1,27 @@
+DATABASE INFORMATION:
+The database for this project was created and maintained using the MariaDB client.
+
+There are two tables in this database, called `accounts` and `contacts`.
+	> `accounts` stores the user accounts that have been created by registering.
+	> `contacts` stores the contacts that accounts make on the site.
+
+Here are the attributes for `accounts`:
+	> userID (int) (auto increment) (primary key)
+	> username (string)
+	> password (string)
+	> firstName (string)
+	> lastName (string)
+	> email (string)
+	> phoneNumber (string)
+
+Here are the attributes for `contacts`:
+	> contactID (int) (auto increment) (primary key)
+	> userID (int)
+	> firstName (string)
+	> lastName (string)
+	> email (string)
+	> phoneNumber (string)
+	> dateCreated (datetime) (automatically sets to current timestamp)
+
+
+In an entity-relationship diagram (ERD), these two tables would share a relationship, that being `accounts` <CREATES> `contacts`. However, since this is a one-to-many relationship (one account can have many contacts, but one contact cannot have many accounts), the relationship table that would exist has been fused to the `contacts` table, so that each contact is linked to the userID that created it.

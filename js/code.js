@@ -490,42 +490,91 @@ function getContacts() {
     xmlRequest.send(jsonAPIRequest);
 }
 
+let contactsTableBody;
 function displayContacts(contacts) {
-    let contactsTableBody = document.getElementById("contacts").getElementsByTagName('tbody')[0];
+    contactsTableBody = document.getElementById("contacts").getElementsByTagName('tbody')[0];
     contactsTableBody.innerHTML = ""; 
 
-    contacts.forEach(contact => {
-        let row = contactsTableBody.insertRow();
-        row.id = `contactRow_${contact.contactID}`;
+    // for(i = 0; i < 2; i++){
+    //     if (i >= contacts.length)
+    //         break; 
+    //     loadMoreCon(contacts, i);
+    // }
+    loadMoreCon(contacts, 0);
+    // contacts.forEach(contact => {
+    //     let row = contactsTableBody.insertRow();
+    //     row.id = `contactRow_${contact.contactID}`;
 
       
-        let date = new Date(contact.dateCreated);
-        let formattedDate = formatFullDate(date);
+    //     let date = new Date(contact.dateCreated);
+    //     let formattedDate = formatFullDate(date);
 
        
-        row.insertCell(0).innerText = contact.firstName;
-        row.cells[0].setAttribute('data-title', `Date Created: ${formattedDate}`);
+    //     row.insertCell(0).innerText = contact.firstName;
+    //     row.cells[0].setAttribute('data-title', `Date Created: ${formattedDate}`);
 
         
-        row.insertCell(1).innerText = contact.lastName;
+    //     row.insertCell(1).innerText = contact.lastName;
+    //     row.cells[1].setAttribute('data-title', `Date Created: ${formattedDate}`);
+
+       
+    //     row.insertCell(2).innerText = contact.email;
+    //     row.cells[2].setAttribute('data-title', `Date Created: ${formattedDate}`);
+
+       
+    //     let formattedPhoneNumber = formatPhoneNumber(contact.phoneNumber);
+    //     row.insertCell(3).innerText = formattedPhoneNumber;
+    //     row.cells[3].setAttribute('data-title', `Date Created: ${formattedDate}`);
+
+       
+    //     let actionCell = row.insertCell(4);
+    //     actionCell.innerHTML = `
+    //         <button class="edit-btn" onclick="editContact(${contact.contactID})">Edit</button>
+    //         <button class="remove-btn" onclick="removeContact(${contact.contactID})">Remove</button>
+    //     `;
+    // });
+}
+let row;
+function loadMoreCon(contacts, curContact) {
+    // let contactsTableBody = document.getElementById("contacts").getElementsByTagName('tbody')[0];
+    // contactsTableBody.innerHTML = ""; 
+    
+    for(curCon = curContact; curCon < curContact + 2; curCon++){
+        
+        if(curCon >= contacts.length){
+            break;
+        }
+        row = contactsTableBody.insertRow();
+        row.id = `contactRow_${contacts[curCon].contactID}`;
+
+
+        let date = new Date(contacts[curCon].dateCreated);
+        let formattedDate = formatFullDate(date);
+
+
+        row.insertCell(0).innerText = contacts[curCon].firstName;
+        row.cells[0].setAttribute('data-title', `Date Created: ${formattedDate}`);
+
+
+        row.insertCell(1).innerText = contacts[curCon].lastName;
         row.cells[1].setAttribute('data-title', `Date Created: ${formattedDate}`);
 
-       
-        row.insertCell(2).innerText = contact.email;
+
+        row.insertCell(2).innerText = contacts[curCon].email;
         row.cells[2].setAttribute('data-title', `Date Created: ${formattedDate}`);
 
-       
-        let formattedPhoneNumber = formatPhoneNumber(contact.phoneNumber);
+
+        let formattedPhoneNumber = formatPhoneNumber(contacts[curCon].phoneNumber);
         row.insertCell(3).innerText = formattedPhoneNumber;
         row.cells[3].setAttribute('data-title', `Date Created: ${formattedDate}`);
 
-       
+
         let actionCell = row.insertCell(4);
         actionCell.innerHTML = `
-            <button class="edit-btn" onclick="editContact(${contact.contactID})">Edit</button>
-            <button class="remove-btn" onclick="removeContact(${contact.contactID})">Remove</button>
+            <button class="edit-btn" onclick="editContact(${contacts[curCon].contactID})">Edit</button>
+            <button class="remove-btn" onclick="removeContact(${contacts[curCon].contactID})">Remove</button>
         `;
-    });
+        }
 }
 
 
